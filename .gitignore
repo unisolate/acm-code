@@ -13,6 +13,7 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+*.exe
 
 # =========================
 # Operating System Files
@@ -35,5 +36,3 @@ Icon
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
-
-.exe
