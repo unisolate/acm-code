@@ -1,20 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
-class SquareDivisor
+int c[9][9] = {1, 2, 3, 4, 5};
+int main()
 {
-public:
-    long long biggest(long long n)
-    {
-        long long ans, m = sqrt(n);
-        for (long long i = m; i >= 1; --i)
-        {
-            long long t = i * i;
-            if (n % t == 0)
-            {
-                ans = t;
-                break;
-            }
-        }
-        return ans;
-    }
-};
+    memset(c, 1, sizeof(c));
+    for (int i = 0; i < 9; ++i)
+        for (int j = 0; j < 9; ++j)
+            printf("%d ", c[i][j]);
+    return 0;
+}
