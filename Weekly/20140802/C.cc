@@ -1,74 +1,81 @@
 #include <bits/stdc++.h>
 #define MX 222
 using namespace std;
-char p[MX][MX];
-int wtf[MX][MX][2];
 int n, m;
-int fuck(int pos, int i, int right)
-{
-    if (i == n)
-        return 0;
-    if (wtf[pos][i][right] != -1)
-        return wtf[pos][i][right];
-    int ans = 0, t = pos, add = 0;
-    for (int j = 0; j < m; ++j)
-    {
-        int k = pos + (right ? j : -j);
-        // printf("#%d\n", k);
-        if (k >= m) k -= m;
-        else if (k < 0) k += m;
-        if (p[i][k] == 'W')
-            t = k;
-    }
-    // printf("##%d\n", t);
-    if (right)
-    {
-        if (t >= pos)
-            add = t - pos;
-        else add = (m - pos - 1) * 2 + pos - t, right = 0;
-    }
-    else
-    {
-        if (t >= 0)
-            add = pos;
-        else add = pos * 2 + t - pos, right = 1;
-    }
-    // printf("###%d\n", add);
-    pos = t;
-    ans += add;
-    // right = !right;
-    int hehe = (int)1e9;
-    if (right)
-    {
-        for (int j = pos; j < m; ++j)
-        {
-            if (j != m - 1)
-                hehe = min(hehe, min(j - pos + fuck(j, i + 1, 0), m - 1 - pos + m - 1 - j + fuck(j, i + 1, 1)));
-            else hehe = min(hehe, j - pos + fuck(j, i + 1, 0));
-        }
-    }
-    else
-    {
-        for (int j = pos; j >= 0; --j)
-        {
-            if (j != 0)
-                hehe = min(hehe, min(pos - j + fuck(j, i + 1, 1), pos + j + fuck(j, i + 1, 0)));
-            else hehe = min(hehe, pos - j + fuck(j, i + 1, 1));
-        }
-    }
-    return wtf[pos][i][right] = ans + hehe/* + fuck(pos, i + 1, right)*/;
-}
+char p[MX][MX];
 int main()
 {
-    memset(wtf, -1, sizeof(wtf));
     scanf("%d%d", &n, &m);
-    getchar();
+    for (int i = 0; i < n; ++i)
+        scanf("%s", p[i]);
+    for (int i = n - 1; i >= 0; --i)
+    {
+        bool flag = true;
+        for (int j = 0; j < m; ++j)
+            if (p[i][j] == 'W')
+            {
+                flag = false;
+                break;
+            }
+        if (flag)
+            --n;
+        else break;
+    }
+    int ans = 0, pos = 0;
+    bool right = true;
     for (int i = 0; i < n; ++i)
     {
-        for (int j = 0; j < m; ++j)
-            scanf("%c", &p[i][j]);
-        getchar();
+        int l = pos, r = pos;
+        for (int j = 0; j < pos; ++j)
+            if (p[i][j] == 'W')
+            {
+                l = j;
+                break;
+            }
+        for (int j = m - 1; j > pos; --j)
+            if (p[i][j] == 'W')
+            {
+                r = j;
+                break;
+            }
+        if (right)
+        {
+            if (l != pos)
+                ans += 2 * (m - 1 - pos) + pos - l, pos = l, right = !right;
+            else ans += r - pos, pos = r;
+        }
+        else
+        {
+            if (r != pos)
+                ans += 2 * pos + r - pos, pos = r, right = !right;
+            else ans += pos - l, pos = l;
+        }
+        if (i == n - 1)
+            break;
+        int t = pos;
+        if (right)
+        {
+            for (int j = m - 1; j >= pos; --j)
+                if (p[i + 1][j] == 'W')
+                {
+                    t = j;
+                    break;
+                }
+            ans += t - pos;
+        }
+        else
+        {
+            for (int j = 0; j <= pos; ++j)
+                if (p[i + 1][j] == 'W')
+                {
+                    t = j;
+                    break;
+                }
+            ans += pos - t;
+        }
+        pos = t;
+        right = !right;
     }
-    printf("%d\n", fuck(0, 0, 1) + n - 1);
+    printf("%d\n", ((ans + n - 1) >= 0 ? ans + n - 1 : 0));
     return 0;
 }
