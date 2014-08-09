@@ -12,24 +12,25 @@ By Uni, 2014/8/8
 #define rc n<<1|1
 using namespace std;
 
-int num[MX], sum[MX << 2], max[MX << 2], add[MX << 2];
-int L, R, x, v;
+int num[MX], sum[MX << 2], ma[MX << 2], add[MX << 2];
+int L, R, N, x, v;
 
 //Push the info to upper level
 inline void up(int n)
 {
     sum[n] = sum[lc] + sum[rc];
-    max[n] = max(max[lc], max[rc]);
+    ma[n] = max(ma[lc], ma[rc]);
+    mi[n] = min(mi[lc], mi[rc]);
 }
 
 // Build interval tree
-void B(int l = 1, int r = n, int n = 1)
+void B(int l = 1, int r = N, int n = 1)
 {
     add[n] = 0; // Use it in interval update
     if (l == r)
     {
         scanf("%d", &num[l]);
-        sum[n] = max[n] = num[l]; // Notice the order
+        sum[n] = ma[n] = mi[n] = num[l]; // Notice the order
         return;
     }
     int m = l + r >> 1;
@@ -38,34 +39,34 @@ void B(int l = 1, int r = n, int n = 1)
 
 // Update position x
 // Prepare: x, v
-void U(int l = 1, int r = n, int n = 1)
+void U(int l = 1, int r = N, int n = 1)
 {
     if (l == r)
     {
-        sum[n] = min[n] = v; // Addition is also acceptable
+        sum[n] = mi[n] = v; // Addition is also acceptable
         return;
     }
     int m = l + r >> 1;
-    if (x <= m) U(x, v, lson);
-    else U(x, v, rson);
+    if (x <= m) U(lson);
+    else U(rson);
     up(n);
 }
 
 // Query interval [L,R]
 // Prepare: L, R
-int Q(int l = 1, int r = n, int n = 1)
+int Q(int l = 1, int r = N, int n = 1)
 {
     if (L <= l && r <= R)
     {
         return sum[n];
-        // return max[n];
+        // return ma[n];
     }
     down(n, r - l + 1);
     int ans = 0, m = l + r >> 1;
-    if (L <= m) ans += Q(L, R, lson);
-    // ans = max(ans, Q(L, R, lson));
-    if (m < R) ans += Q(L, R, rson);
-    // ans = max(ans, Q(L, R, rson));
+    if (L <= m) ans += Q(lson);
+    // ans = max(ans, Q(lson));
+    if (m < R) ans += Q(rson);
+    // ans = max(ans, Q(rson));
     return ans;
 }
 
@@ -88,7 +89,7 @@ void down(int n, int m)
 
 // Update [L,R]
 // Prepare: L, R, v
-void U(int l = 1, int r = n, int n = 1)
+void U(int l = 1, int r = N, int n = 1)
 {
     if (L <= l && r <= R)
     {
@@ -97,7 +98,7 @@ void U(int l = 1, int r = n, int n = 1)
     }
     down(n, r - l + 1);
     int m = (l + r) >> 1;
-    if (L <= m) U(L, R, v, lson);
-    if (m < R) U(L, R, v, rson);
+    if (L <= m) U(lson);
+    if (m < R) U(rson);
     up(n);
 }

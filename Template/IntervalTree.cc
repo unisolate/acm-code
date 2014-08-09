@@ -10,12 +10,13 @@ By Uni, 2014/8/8
 #define lc n<<1
 #define rc n<<1|1
 using namespace std;
-int num[MX], sum[MX << 2], max[MX << 2], add[MX << 2];
-int L, R, x, v;
+int num[MX], sum[MX << 2], ma[MX << 2], mi[MX << 2], add[MX << 2];
+int L, R, N, x, v;
 inline void up(int n)
 {
     sum[n] = sum[lc] + sum[rc];
-    max[n] = max(max[lc], max[rc]);
+    ma[n] = max(ma[lc], ma[rc]);
+    mi[n] = min(mi[lc], mi[rc]);
 }
 void B(int l = 1, int r = n, int n = 1)
 {
@@ -23,7 +24,7 @@ void B(int l = 1, int r = n, int n = 1)
     if (l == r)
     {
         scanf("%d", &num[l]);
-        sum[n] = max[n] = num[l];
+        sum[n] = ma[n] = num[l];
         return;
     }
     int m = l + r >> 1;
@@ -34,12 +35,12 @@ void U(int l = 1, int r = n, int n = 1)
 {
     if (l == r)
     {
-        // sum[n] = min[n] = v;
+        // sum[n] = mi[n] = v;
         return;
     }
     int m = l + r >> 1;
-    if (x <= m) U(x, v, lson);
-    else U(x, v, rson);
+    if (x <= m) U(lson);
+    else U(rson);
     up(n);
 }
 // Prepare: L, R
@@ -48,14 +49,14 @@ int Q(int l = 1, int r = n, int n = 1)
     if (L <= l && r <= R)
     {
         // return sum[n];
-        // return max[n];
+        // return ma[n];
     }
     down(n, r - l + 1);
     int ans = 0, m = l + r >> 1;
-    if (L <= m) ans += Q(L, R, lson);
-    // ans = max(ans, Q(L, R, lson));
-    if (m < R) ans += Q(L, R, rson);
-    // ans = max(ans, Q(L, R, rson));
+    if (L <= m) ans += Q(lson);
+    // ans = max(ans, Q(lson));
+    if (m < R) ans += Q(rson);
+    // ans = max(ans, Q(rson));
     return ans;
 }
 void down(int n, int m)
@@ -79,7 +80,7 @@ void U(int l = 1, int r = n, int n = 1)
     }
     down(n, r - l + 1);
     int m = (l + r) >> 1;
-    if (L <= m) U(L, R, v, lson);
-    if (m < R) U(L, R, v, rson);
+    if (L <= m) U(lson);
+    if (m < R) U(rson);
     up(n);
 }
