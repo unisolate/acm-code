@@ -87,7 +87,7 @@ int main()
         for (int i = 1; i <= 1000; ++i)
             if ((s1 ^ i) == s2)
             {
-                printf("%d %d %d\n", x, i, (s1 ^ (x))^(s1^n));
+                printf("%d %d %d\n", x, i, (s1 ^ (x)));
                 // for (int j = 1; j <= 1000; ++j)
                 //     for (int k = 1; k <= 1000; ++k)
                 //         if ((k ^ j) == i)

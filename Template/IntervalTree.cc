@@ -18,7 +18,7 @@ inline void up(int n)
     ma[n] = max(ma[lc], ma[rc]);
     mi[n] = min(mi[lc], mi[rc]);
 }
-void B(int l = 1, int r = n, int n = 1)
+void B(int l = 1, int r = N, int n = 1)
 {
     // add[n] = 0;
     if (l == r)
@@ -31,7 +31,7 @@ void B(int l = 1, int r = n, int n = 1)
     B(lson), B(rson), up(n);
 }
 // Prepare: x, v
-void U(int l = 1, int r = n, int n = 1)
+void U(int l = 1, int r = N, int n = 1)
 {
     if (l == r)
     {
@@ -44,7 +44,7 @@ void U(int l = 1, int r = n, int n = 1)
     up(n);
 }
 // Prepare: L, R
-int Q(int l = 1, int r = n, int n = 1)
+int Q(int l = 1, int r = N, int n = 1)
 {
     if (L <= l && r <= R)
     {
@@ -71,7 +71,7 @@ void down(int n, int m)
     }
 }
 // Prepare: L, R, v
-void U(int l = 1, int r = n, int n = 1)
+void U(int l = 1, int r = N, int n = 1)
 {
     if (L <= l && r <= R)
     {
