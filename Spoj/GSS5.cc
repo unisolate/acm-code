@@ -27,13 +27,14 @@ void B(int l = 1, int r = N, int n = 1)
 }
 int QL(int L, int R, int l = 1, int r = N, int n = 1)
 {
+    printf("QL %d %d %d %d %d\n",L,R,l,r,n);
     if (L > R) return 0;
     if (L <= l && r <= R)
         return lm[n];
     int m = l + r >> 1, ans;
     if (L > m) return QL(L, R, rson);
     if (R <= m) return QL(L, R, lson);
-    printf("####%d %d %d\n", QL(L, R, rson) + sum[lc], sum[lc], QL(L, R, lson));
+    printf("=====\n####%d %d %d\n", QL(L, R, rson) + sum[lc], sum[lc], QL(L, R, lson));
     return max(QL(L, R, rson) + sum[lc], max(sum[lc], QL(L, R, lson)));
 }
 int QR(int L, int R, int l = 1, int r = N, int n = 1)
@@ -73,6 +74,8 @@ int main()
     while (t--)
     {
         scanf("%d", &N), B();
+        for (int i = 1; i <= 13; ++i)
+            printf("#%d %d %d %d %d\n", i,sum[i], lm[i], rm[i], mm[i]);
         scanf("%d", &m);
         while (m--)
         {
