@@ -1,11 +1,11 @@
 //memset c 0 before use
-int c[MAXN];
+int c[MX];
 
 //n -> update place
 //v -> update value
 void update(int n, int v)
 {
-    for(; n <= MAXN; n += (n & -n))
+    for(; n <= MX; n += (n & -n))
         c[n] += v;
 }
 

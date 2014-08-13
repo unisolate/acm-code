@@ -54,8 +54,8 @@ int Q(int L, int R, int l = 1, int r = N, int n = 1)
 }
 int main()
 {
-    freopen("data.out", "r", stdin);
-    freopen("A.out", "w", stdout);
+    // freopen("data.out", "r", stdin);
+    // freopen("A.out", "w", stdout);
     int m, L, R;
     scanf("%d", &N), B();
     scanf("%d", &m);
