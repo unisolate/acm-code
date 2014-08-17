@@ -1,40 +1,31 @@
 #include <bits/stdc++.h>
 #define MX 100010
-#define L 678
 using namespace std;
-int p[MX], f[MX], m[MX];
+int f[MX];
 int main()
 {
-    int n, t, T;
+    int n, m, t, T, cas = 0;
     scanf("%d", &T);
-    for (int cas = 1; cas <= T; ++cas)
+    while (T--)
     {
-        memset(f, 0, sizeof(f));
-        memset(m, 0, sizeof(m));
-        scanf("%d%d", &n, &t);
-        for (int i = 0; i < n; ++i)
-            scanf("%d", &p[i]);
-        for (int i = 0; i < n; ++i)
-            for (int j = t; j >= p[i]; --j)
-                if (f[j - p[i]] + p[i] > f[j] || (f[j - p[i]] + p[i] == f[j] && m[j - p[i]] + 1 >= m[j]))
-                {
-                    f[j] = f[j - p[i]] + p[i];
-                    m[j] = m[j - p[i]] + 1;
-                }
-        printf("Case %d: %d %d\n", cas, m[t - 1] + 1, f[t - 1] + L);
+        scanf("%d%d", &n, &m);
+        memset(f, -1, sizeof(f));
+        f[0] = 0;
+        for (int i = 1; i <= n; ++i)
+        {
+            scanf("%d", &t);
+            for (int j = m - t; j >= 0; --j)
+                if (f[j] != -1)
+                    f[j + t] = max(f[j + t], f[j] + 1);
+        }
+        int x = 0, y = 0;
+        for (int i = m - 1; i >= 0; --i)
+            if (f[i] > x) x = f[i], y = i;
+        printf("Case %d: %d %d\n", ++cas, x + 1, y + 678);
     }
     return 0;
 }
-/*#include <cstdio>
-#include <cstring>
-#include <algorithm>
-
-using namespace std;
-
-#define MN 50*3*160*2
-
-int F[MN], T, N, M, t;
-
+/*int F[MN], T, N, M, t;
 int main()
 {
     scanf("%d", &T);
