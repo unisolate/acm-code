@@ -1,4 +1,5 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstdlib>
 using namespace std;
 bool m[181];
 int main()

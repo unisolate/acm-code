@@ -1,4 +1,5 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
 using namespace std;
 int p[10];
 int main()
@@ -6,12 +7,12 @@ int main()
     int n, m;
     while (~scanf("%d%d", &n, &m))
     {
-        int ans = 0, t,z;
+        int ans = 0, t, z;
         for (int i = n; i <= m; ++i)
         {
             memset(p, 0, sizeof(p));
             bool f = true;
-            z=i;
+            z = i;
             while (z)
             {
                 t = z % 10;
