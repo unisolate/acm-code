@@ -17,7 +17,7 @@ int main()
             scanf("%d", &p), h[p % m][q[p % m]++] = p;
         for (int i = 0; i < m; ++i)
         {
-            sort(h[i], h[i] + q[i]);
+            // sort(h[i], h[i] + q[i]);
             printf("%d", i);
             for (int j = 0; j < q[i]; ++j)
                 printf(" -> %d", h[i][j]);
