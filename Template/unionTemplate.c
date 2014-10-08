@@ -1,35 +1,35 @@
 int p[MAXN];
 void init()
 {
-	for(int i=0;i<MAXN;++i)
-		p[i]=i;
+    for (int i = 0; i < MAXN; ++i)
+        p[i] = i;
 }
 int find(int x)
 {
-	return x==p[x]?x:(p[x]=find(p[x]));
+    return x == p[x] ? x : (p[x] = find(p[x]));
 }
-bool equal(int x,int y) // whether at same group
+bool equal(int x, int y) // whether at same group
 {
-	return find(x)==find(y);
+    return find(x) == find(y);
 }
-void union(int x,int y)
+void union(int x, int y)
 {
-	p[find(x)]=find(y);
+    p[find(x)] = find(y);
 }
-void union(int x,int y)
+void union(int x, int y)
 {
-	x=find(x);
-	y=find(y);
-	if(x==y)
-		return;
-	num--;
-	p[x]=y;
+    x = find(x);
+    y = find(y);
+    if (x == y)
+        return;
+    num--;
+    p[x] = y;
 }
 
-int n[10];  // 每個頭目帶領的人數 
+int n[10];  // 每個頭目帶領的人數
 void init()
 {
-    for (int i=0; i<10; i++)
+    for (int i = 0; i < 10; i++)
     {
         g[i] = i;
         n[i] = 1;   // 頭目有第 0 到第 9 人，每團都是一個人。

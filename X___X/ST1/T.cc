@@ -1,8 +1,3 @@
-/*
-Interval Tree ( Segment Tree )
-Unommented & Compressed Version
-By Uni, 2014/8/8
-*/
 #include <cstdio>
 #include <cstring>
 #include <algorithm>
@@ -85,4 +80,15 @@ void U(int l = 1, int r = N, int n = 1)
     if (L <= m) U(lson);
     if (m < R) U(rson);
     up(n);
+}
+
+int main()
+{
+    int n;
+    while (~scanf("%d", &n))
+    {
+        while (n--)
+            scanf("%d%d%s", &L, &R, op);
+    }
+    return 0;
 }
