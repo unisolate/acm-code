@@ -22,17 +22,23 @@ int main()
                 q.push(p);
                 pq.push(p);
             }
+            else if (s.empty())
+            {
+                f[0] = false;
+                f[1] = false;
+                f[2] = false;
+            }
             else
             {
-                if (s.top() != p)
+                if (!s.empty() && s.top() != p)
                     f[0] = false;
-                s.pop();
-                if (q.front() != p)
+                if (!s.empty()) s.pop();
+                if (!q.empty() && q.front() != p)
                     f[1] = false;
-                q.pop();
-                if (pq.top() != p)
+                if (!q.empty()) q.pop();
+                if (!pq.empty() && pq.top() != p)
                     f[2] = false;
-                pq.pop();
+                if (!pq.empty()) pq.pop();
             }
         }
         int k = 0;
