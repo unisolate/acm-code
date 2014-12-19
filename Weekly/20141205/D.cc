@@ -1,6 +1,6 @@
 #include <cstdio>
 #include <cstring>
-#include <ctype>
+// #include <ctype>
 using namespace std;
 char s[22];
 int main()
