@@ -30,7 +30,7 @@ int main() {
                 if (uni(p[x[i]], p[y[i]]))
                     flag = false;
             }
-            printf("%d\n", s);
+            // printf("%d\n", s);
             if (s > 1)
                 flag = false;
             if (flag)
