@@ -3,10 +3,10 @@
 #include <algorithm>
 #define MX 1024
 using namespace std;
+int n, x, cnt, p[MX], t[MX], m[26];
 char s[MX];
-int a, w1, w2, p[MX], t[MX], x[MX], m1[MX], m2[MX], u1[MX], u2[MX];
+bool q[MX];
 int main() {
-    int cnt = 0;
     for (int i = 2; i < MX; ++i) {
         if (!t[i])
             p[cnt++] = i;
@@ -17,41 +17,35 @@ int main() {
         }
     }
     scanf("%s", s);
-    int n = strlen(s);
-    for (int i = 0; i < n; ++i) {
-        ++m1[s[i]];
-    }
-    for (int i = 'a'; i <= 'z'; ++i) {
-        if (m1[i])
-            u1[w1++] = m1[i];
-    }
-    sort(u1, u1 + w1);
+    n = strlen(s);
+    for (int i = 0; i < n; ++i)
+        ++m[s[i] - 'a'];
+    int a = m[0], b = 'a', v = 0;
+    for (int i = 0; i < 26; ++i)
+        if (m[i] > a)
+            a = m[i], b = i + 'a', v = i;
     for (int i = 0; i < cnt && p[i] <= n; ++i) {
-        bool f = false;
-        int v = a;
-        for (int j = p[i]; j <= n; j += p[i]) {
-            if (x[j]) {
-                f = true;
-                v = x[j];
-                break;
-            }
-        }
-        if (!f)
-            ++a;
-        for (int j = p[i]; j <= n; j += p[i])
-            x[j] = f ? v : a;
+        if (p[i] * 2 > n)
+            ++x, q[p[i] - 1] = true;
     }
-    bool c = true;
-    if (a > w1)
-        c = false;
-    else {
-        for (int i = 1; i <= n; ++i)
-            ++m2[x[i]];
-        sort(m2, m2 + a);
-        
-    }
-    if (c) {
+    bool f = true;
+    if (a < n - x - 1)
+        f = false;
+    if (f) {
         puts("YES");
+        int u = 0;
+        q[0] = true;
+        for (int i = 0; i < n; ++i) {
+            if (q[i]) {
+                while (u < 26 && (u == v || m[u] == 0))
+                    ++u;
+                if (u == 26)
+                    putchar(b);
+                else putchar(u + 'a');
+                --m[u];
+            }
+            else putchar(b);
+        }
     } else puts("NO");
     return 0;
 }
