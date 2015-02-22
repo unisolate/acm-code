@@ -1,4 +1,4 @@
 ACM-Code
 ========
 
-Codes of ACM problems
+Codes of ACM-ICPC problems.
