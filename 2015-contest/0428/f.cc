@@ -1,0 +1,1 @@
+main() {char a[9];while(gets(a))printf("%s\n",a);}
