@@ -1,25 +1,7 @@
-//求gcd
-
-//Euclid算法
 int gcd(int a, int b)
 {
     return (b ? gcd(b, a % b) : a);
 }
-
-
-int gcd(int a, int b)
-{
-    int t;
-    while(b)
-    {
-        t = a % b;
-        a = b;
-        b = t;
-    }
-    return a;
-}
-
-//二进制算法  适合大数
 
 int gcd(int a, int b)
 {

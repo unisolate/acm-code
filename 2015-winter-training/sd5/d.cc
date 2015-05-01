@@ -12,14 +12,14 @@ By Uni, 2014/8/8
 #define lc n<<1
 #define rc n<<1|1
 using namespace std;
-long long sum[MX << 2], add[MX << 2];
+long long sum[MX << 2], add[MX << 2], se[MX << 2];
 int L, R, N;
 long long v;
 inline void up(int n) {
     sum[n] = sum[lc] + sum[rc];
 }
 void B(int l = 1, int r = N, int n = 1) {
-    add[n] = 0;
+    add[n] = se[n] = 0;
     if (l == r) {
         sum[n] = 0;
         return;
@@ -34,21 +34,16 @@ void dow(int n) {
 }
 void down(int n, int m) {
     if (add[n]) {
-        if (add[n] == -1) {
-            dow(n);
-            // return;
-        }
-        // if (add[lc] == -1) {
-        //     dow(lc);
-        // }
-        // if (add[rc] == -1) {
-        //     dow(rc);
-        // }
         add[lc] += add[n];
         add[rc] += add[n];
         sum[lc] += add[n] * (m - (m >> 1));
         sum[rc] += add[n] * (m >> 1);
         add[n] = 0;
+    }
+    if (~se[n]) {
+        se[lc] = se[rc] = se[n];
+        se[n] = -1;
+        se[lc] = se[rc] = 0;
     }
 }
 // Prepare: L, R, v
@@ -66,7 +61,7 @@ void U(int l = 1, int r = N, int n = 1) {
 // Prepare: L, R
 void S(int l = 1, int r = N, int n = 1) {
     if (L <= l && r <= R) {
-        add[n] = -1, sum[n] = 0;
+        se[n] = 0, sum[n] = 0;
         return;
     }
     down(n, r - l + 1);
@@ -77,6 +72,9 @@ void S(int l = 1, int r = N, int n = 1) {
 }
 // Prepare: L, R
 long long Q(int l = 1, int r = N, int n = 1) {
+    if (~se[n]) {
+        return se[n] * (min(r, R) - max(l, L) + 1);
+    }
     if (L <= l && r <= R) {
         return sum[n];
     }
