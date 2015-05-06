@@ -1,5 +1,5 @@
-/// 1.
-// memset c 0 before use
+/// 1. Single point
+// memset(c,0,sizeof(c)) before use
 int c[MX];
 
 // n -> update place, v -> update value
@@ -15,9 +15,8 @@ int Q(int x) {
         r += c[x];
     return r;
 }
-// if need oprate different array, use int* array
 
-//2D
+// 2D
 int c[MAXX][MAXY];
 
 // update at (x,y)
@@ -36,8 +35,7 @@ int Q(int x, int y) {
     return r;
 }
 
-/// 2.
-// update interval [l,r]
+/// 2. Update interval [l,r]
 // U(l - 1, -c), U(r, c);
 void U(int x, int v) {
     for (; x > 0; x -= (x & -x))
@@ -52,9 +50,8 @@ int Q(int x) {
     return r;
 }
 
-/// 3.
-// U(r, c);
-// if (l > 1) U(l - 1, -c);
+/// 3. Update & query Interval
+// U(r, c); if (l > 1) U(l - 1, -c);
 void U(int x, int v) {
     if (x == 0) return;
     for (int i = x; i > 0; i -= (i & -i))
@@ -86,7 +83,6 @@ int Q(int x) {
 
 /// 4.
 // Inversion pairs with duplicate and 10^9
-
 #include <cstdio>
 #include <cstring>
 #include <algorithm>

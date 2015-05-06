@@ -13,14 +13,11 @@ int bs(int k) {
 }
 
 /// algo
-
 bool binary_search( ForwardIt first, ForwardIt last, const T &value,
                     Compare comp );
-
 #include <iostream>
 #include <algorithm>
 #include <vector>
-
 int main() {
     std::vector<int> haystack {1, 3, 4, 5, 9};
     std::vector<int> needles {1, 2, 3};
@@ -36,10 +33,8 @@ int main() {
 }
 
 /// std
-
 #include <cstdlib>
 #include <iostream>
-
 int compare(const void *ap, const void *bp) {
     const int *a = (int *) ap;
     const int *b = (int *) bp;
@@ -50,7 +45,6 @@ int compare(const void *ap, const void *bp) {
     else
         return 0;
 }
-
 int main(int argc, char **argv) {
     const int ARR_SIZE = 8;
     int arr[ARR_SIZE] = { 1, 2, 3, 4, 5, 6, 7, 8 };
