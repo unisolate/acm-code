@@ -16,7 +16,7 @@
 using namespace std;
 
 int num[MX], sum[MX << 2], ma[MX << 2], mi[MX << 2], add[MX << 2];
-int N, L, R, v, x;
+int N, L, R, V, X;
 
 void up(int n) {
     sum[n] = sum[lc] + sum[rc];
@@ -46,15 +46,15 @@ void B(int l = 1, int r = N, int n = 1) {
 }
 
 // Update position x
-// Prepare: x, v
+// Prepare: X, V
 void U(int l = 1, int r = N, int n = 1) {
     if (l == r) {
-        sum[n] = ma[n] = mi[n] = num[l] = v; // or addition
+        sum[n] = ma[n] = mi[n] = num[l] = V; // or addition
         return;
     }
     down(n, r - l + 1);
     int m = (l + r) >> 1;
-    if (x <= m) U(ls);
+    if (X <= m) U(ls);
     else U(rs);
     up(n);
 }
@@ -63,7 +63,7 @@ void U(int l = 1, int r = N, int n = 1) {
 // Prepare: L, R, v
 void U(int l = 1, int r = N, int n = 1) {
     if (L <= l && r <= R) {
-        add[n] += v, sum[n] += v * (r - l + 1);
+        add[n] += V, sum[n] += V * (r - l + 1);
         return;
     }
     down(n, r - l + 1);
@@ -80,7 +80,7 @@ int Q(int l = 1, int r = N, int n = 1) {
         return sum[n];
     }
     down(n, r - l + 1);
-    int ans = 0, m = l + r >> 1;
+    int ans = 0, m = (l + r) >> 1;
     if (L <= m) ans += Q(ls);
     // ans = max(ans, Q(ls));
     if (m < R) ans += Q(rs);

@@ -1,3 +1,101 @@
+#include <cstdio>
+#include <cstring>
+#define MAXW 100010
+#define MAXL 12
+using namespace std;
+const int MAXN = MAXW * MAXL;
+
+struct node {
+    int next[26];
+    int cnt;
+} t[MAXN];
+
+int ts = 0;
+
+int insert(char s[]) {
+    int len = strlen(s), p = 0;
+    for (int i = 0; i < len; ++i) {
+        if (!t[p].next[s[i] - 'a'])
+            t[p].next[s[i] - 'a'] = ++ts;
+        ++t[p].cnt;
+        p = t[p].next[s[i] - 'a'];
+    }
+    return ++t[p].cnt;
+}
+
+int query(char s[]) {
+    int len = strlen(s), p = 0;
+    for (int i = 0; i < len; ++i) {
+        if (!t[p].next[s[i] - 'a'])
+            return 0;
+        p = t[p].next[s[i] - 'a'];
+    }
+    return t[p].cnt;
+}
+
+int main() {
+    char s[MAXL];
+    int n;
+    scanf("%d", &n);
+    while (n--) {
+        scanf("%s", s);
+        insert(s);
+    }
+    scanf("%d", &n);
+    while (n--) {
+        scanf("%s", s);
+        printf("%d\n", query(s));
+    }
+    return 0;
+}
+
+// LRJ版本 能保存附加信息
+#include <bits/stdc++.h>
+using namespace std;
+const int maxnode = 4000 * 100 + 5; /// trie树节点上限 = maxw * maxwl
+const int sigma_size = 26;
+const int maxl = 300000 + 5; /// 文本串最大长度
+const int maxw = 4000 + 5;   /// 单词最大个数
+const int maxwl = 100 + 5;   /// 每个单词最大长度
+const int MOD = 20071027;
+
+struct Trie {
+    int ch[maxnode][sigma_size]; /// ch[node_id][nextchar]表示第id号节点下的节点对应的id号
+    int val[maxnode];
+    int sz; /// 结点总数
+    void clear() {
+        sz = 1;    /// 初始时只有一个根结点
+        memset(ch[0], 0, sizeof(ch[0]));
+    }
+
+    /// 插入字符串s，附加信息为v。注意v必须非0，因为0代表“本结点不是单词结点”
+    void insert(const char *s, int v) {
+        int u = 0, n = strlen(s), c;
+        for (int i = 0; i < n; ++i) {
+            c = s[i] - 'a';
+            if (ch[u][c] == 0) { /// 结点不存在
+                memset(ch[sz], 0, sizeof(ch[sz]));
+                val[sz] = 0;  /// 中间结点的附加信息为0
+                ch[u][c] = sz++; /// 新建结点
+            }
+            u = ch[u][c]; /// 往下走
+        }
+        val[u] = v; /// 字符串的最后一个字符的附加信息为v
+    }
+
+    /// 找字符串s的前缀(前缀长度<=len)
+    void find_prefixes(const char *s, int len, vector<int> &ans) {
+        int u = 0, c;
+        for (int i = 0; s[i] && i < len; ++i) {
+            c = s[i] - 'a';
+            if (ch[u][c] == 0) break;
+            u = ch[u][c];
+            if (val[u]) ans.push_back(val[u]); /// 找到一个前缀
+        }
+    }
+} trie;
+
+// 有删除函数
 /*==================================================*\
   [Trie] 字典树
   support:
@@ -95,48 +193,3 @@ int main() {
     }
     return 0;
 }
-
-#include <bits/stdc++.h>
-using namespace std;
-const int maxnode = 4000 * 100 + 5; /// trie树节点上限 = maxw * maxwl
-const int sigma_size = 26;
-const int maxl = 300000 + 5; /// 文本串最大长度
-const int maxw = 4000 + 5;   /// 单词最大个数
-const int maxwl = 100 + 5;   /// 每个单词最大长度
-const int MOD = 20071027;
-
-struct Trie {
-    int ch[maxnode][sigma_size]; /// ch[node_id][nextchar]表示第id号节点下的节点对应的id号
-    int val[maxnode];
-    int sz; /// 结点总数
-    void clear() {
-        sz = 1;    /// 初始时只有一个根结点
-        memset(ch[0], 0, sizeof(ch[0]));
-    }
-
-    /// 插入字符串s，附加信息为v。注意v必须非0，因为0代表“本结点不是单词结点”
-    void insert(const char *s, int v) {
-        int u = 0, n = strlen(s), c;
-        for (int i = 0; i < n; ++i) {
-            c = s[i] - 'a';
-            if (ch[u][c] == 0) { /// 结点不存在
-                memset(ch[sz], 0, sizeof(ch[sz]));
-                val[sz] = 0;  /// 中间结点的附加信息为0
-                ch[u][c] = sz++; /// 新建结点
-            }
-            u = ch[u][c]; /// 往下走
-        }
-        val[u] = v; /// 字符串的最后一个字符的附加信息为v
-    }
-
-    /// 找字符串s的前缀(前缀长度<=len)
-    void find_prefixes(const char *s, int len, vector<int> &ans) {
-        int u = 0, c;
-        for (int i = 0; s[i] && i < len; ++i) {
-            c = s[i] - 'a';
-            if (ch[u][c] == 0) break;
-            u = ch[u][c];
-            if (val[u]) ans.push_back(val[u]); /// 找到一个前缀
-        }
-    }
-} trie;
