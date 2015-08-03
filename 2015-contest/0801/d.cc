@@ -1,4 +1,4 @@
-#pragma comment(linker, "/STACK:102400000,102400000")
+#pragma comment(linker, "/STACK:1024000000,1024000000")
 #include <cstring>
 #include <algorithm>
 #include <cstdio>
@@ -28,7 +28,7 @@ struct SAP {
     void addCap(int i, int j, int cap) {
         buf[len].init(j, cap, E[i]);
         E[i] = len++;
-        buf[len].init(i, cap, E[j]);
+        buf[len].init(i, 0, E[j]);
         E[j] = len++;
     }
     int sap(const int idx, const int maxCap) {
@@ -112,6 +112,7 @@ int main() {
         for (int i = 0; i < m; ++i) {
             scanf("%d%d%d", &a, &b, &c);
             S.addCap(a, b, c);
+            S.addCap(b, a, c);
         }
         printf("%d\n", S.solve(l, r));
     }
