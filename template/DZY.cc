@@ -89,11 +89,11 @@ struct point
     {
         return point(x/b,y/b);
     }
-    double dot(point p)
+    double dot(point p)//点积
     {
         return x*p.x+y*p.y;
     }
-    double det(point p)
+    double det(point p)//叉积
     {
         return x*p.y-y*p.x;
     }

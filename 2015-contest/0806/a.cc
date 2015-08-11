@@ -40,18 +40,15 @@ int main() {
                     f = false;
                     break;
                 }
-                if (x[i] - v == -1) {
-                    ++x[i];
-                }
-                if (x[i] - v == 1) {
-                    --x[i];
-                }
             }
+        }
+        if (f) {
             for (int i = 0; i < n; ++i) {
                 if (x[i] != v) {
                     f = false;
                     break;
                 }
+
             }
         }
         if (f) {

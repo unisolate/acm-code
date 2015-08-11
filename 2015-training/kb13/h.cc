@@ -450,8 +450,11 @@ struct polygon {
     line l[maxp];
     void input() {
         n = 4;
-        p[0].input();
-        p[2].input();
+        scanf("%lf%lf%lf%lf", &p[0].x, &p[0].y, &p[2].x, &p[2].y);
+        if (p[0].x > p[2].x) swap(p[0].x, p[2].x);
+        if (p[0].y < p[2].y) swap(p[0].y, p[2].y);
+        // p[0].input();
+        // p[2].input();
         p[1].x = p[2].x;
         p[1].y = p[0].y;
         p[3].x = p[0].x;
@@ -754,7 +757,11 @@ int main() {
     while (t--) {
         l.input();
         p.input();
-        printf("%c\n", p.relationline(l) ? 'T' : 'F');
+        p.getline();
+        printf("%c\n", ((p.relationpoint(l.a) && p.relationpoint(l.b))
+                        || (p.l[0].segcrossseg(l)
+                            || p.l[1].segcrossseg(l)
+                            || p.l[2].segcrossseg(l) || p.l[3].segcrossseg(l))) ? 'T' : 'F');
     }
     return 0;
 }
