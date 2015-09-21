@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <vector>
 #include <algorithm>
+#include <cstdlib>
 #define MX 100001
 using namespace std;
 int p[MX], q[MX];

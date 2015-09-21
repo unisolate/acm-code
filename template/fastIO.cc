@@ -1,10 +1,55 @@
+#define BUFSIZE 1000000
+char buf[BUFSIZE], *pt = buf + BUFSIZE, *pend = buf + BUFSIZE;
+int sign;
+#define read()                             \
+    do {                                   \
+        if (pt >= pend) {                  \
+            pt = buf;                      \
+            fread(buf, 1, BUFSIZE, stdin); \
+        }                                  \
+    } while (0)
+#define scan(t)                                          \
+    {                                                    \
+        t = 0;                                           \
+        sign = 1;                                        \
+        read();                                          \
+        while ((*pt < '0' || *pt > '9') && *pt != '-') { \
+            pt++;                                        \
+            read();                                      \
+        }                                                \
+        if (*pt == '-')                                  \
+            sign = -1, pt++;                             \
+        while (((*pt) >= '0' && (*pt) <= '9')) {         \
+            t = t * 10 + (*(pt++)) - '0';                \
+            read();                                      \
+        }                                                \
+        t *= sign;                                       \
+    }
+#define scan_str(s)                                               \
+    {                                                             \
+        int p = 0;                                                \
+        read();                                                   \
+        while ((*pt) == ' ' || (*pt) == 'n' || (*pt) == 'r') {    \
+            pt++;                                                 \
+            read();                                               \
+        }                                                         \
+        while (!((*pt) == ' ' || (*pt) == 'n' || (*pt) == 'n')) { \
+            s[p++] = (*(pt++));                                   \
+            read();                                               \
+        }                                                         \
+        s[p] = 0;                                                 \
+    }
+
+//////
 inline void scanf_(int &num) {
     char in;
     bool neg = false;
-    while (((in = getchar()) > '9' || in < '0') && in != '-') ;
+    while (((in = getchar()) > '9' || in < '0') && in != '-')
+        ;
     if (in == '-') {
         neg = true;
-        while ((in = getchar()) > '9' || in < '0');
+        while ((in = getchar()) > '9' || in < '0')
+            ;
     }
     num = in - '0';
     while (in = getchar(), in >= '0' && in <= '9')
