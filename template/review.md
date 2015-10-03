@@ -31,7 +31,7 @@ bool operator<(const thing& rhs) const {
 ```cpp
 #include <ext/rope>
 using __gnu_cxx::crope;
-crope rp;s
+crope rp;
 ```
 
 # kdtree
@@ -39,3 +39,11 @@ crope rp;s
 # cdq 分治
 
 # 整体二分
+
+# 单调队列
+* 利用双端队列实现，在队列中存数组下标。
+* 滚动窗口：每次从头弹出不在窗口内的元素，从尾弹出小于新元素的元素，新元素插入到尾。
+
+# 单调栈
+* 同样存下标。
+* 最大面积：正反扫两遍维护 l, r 数组，表示 h[i] 能向左/右扩展的最大长度。
