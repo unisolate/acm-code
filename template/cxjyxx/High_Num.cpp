@@ -142,7 +142,8 @@ struct High_Num {
     inline void divide(const High_Num& a, const High_Num& b, High_Num& ans) {
         ans.clear();
         High_Num l = 0, r = 0, mid;
-        r = a + 1;
+        r = a;
+        r = r + 1;
         while (l + 1 < r) {
             get_mid(l + r, mid);
             if (mid * b > a)
