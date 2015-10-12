@@ -1,31 +1,26 @@
 int p[MX], q[MX], n;
 
 void init() {
-    for (int i = 0; i < MX; ++i)
-        p[i] = i, q[i] = 1;
+    for (int i = 0; i < MX; ++i) {
+        p[i] = i;
+        q[i] = 1;
+    }
 }
 
 int F(int x) {
     return x == p[x] ? x : (p[x] = F(p[x]));
 }
 
-bool equal(int x, int y) { // whether at same group
+bool equal(int x, int y) {  // whether at same group
     return F(x) == F(y);
 }
 
 void uni(int x, int y) {
     x = F(x), y = F(y);
-    if (x == y) return;
+    if (x == y)
+        return;
     --n;
     p[x] = y;
     q[y] += q[x];
     q[x] = 0;
-}
-
-int cardinality(int x) {
-    return n[F(x)];
-}
-
-bool single(int x) {
-    return n[F(x)] == 1;
 }

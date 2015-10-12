@@ -29,6 +29,7 @@ int bs(int k) {
 }
 
 /*
+[l, r)
 lower_bound >=
 upper_bound >
  */
