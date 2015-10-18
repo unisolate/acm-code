@@ -63,3 +63,12 @@ int ub(int k) {
     }
     return l;
 }
+
+void solve(int l, int r) {
+    int m;
+    while (r - l > 1) {
+        m = (l + r) >> 1;
+        ok(m) ? l = m : r = m;
+    }
+    return l;
+}

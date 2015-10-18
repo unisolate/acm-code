@@ -50,3 +50,14 @@ crope rp;
 
 # <algorithm>
 * set_union()
+
+# 优先队列
+结构体比较：
+```cpp
+struct P {
+    int a, b;
+    bool operator<(const P &x) const {
+        return b > x.b;
+    }
+}
+```
