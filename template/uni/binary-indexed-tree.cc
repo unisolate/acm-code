@@ -4,12 +4,18 @@ int c[MX];
 
 // n -> update place, v -> update value
 void U(int x, int v) {
+    if (x == 0) {
+        return;
+    }
     for (; x <= n; x += (x & -x))
         c[x] += v;
 }
 
 // get the sum from 1 to n (BIT starts from 1)
 int Q(int x) {
+    if (x == 0) {
+        return;
+    }
     int r = 0;
     for (; x > 0; x -= (x & -x))
         r += c[x];
