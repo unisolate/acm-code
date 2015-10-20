@@ -1,4 +1,5 @@
-// TODO 调度场算法
+// 调度场算法：中缀转后缀（逆波兰）
+// 算符优先级
 int op_rank(char c) {
     switch (c) {
     case '^':

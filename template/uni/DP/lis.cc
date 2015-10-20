@@ -1,5 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
 int lis[MAXN];
 int lis() {
     int n, i, j, x, len = 0;
@@ -12,12 +10,11 @@ int lis() {
     }
     return len;
 }
-// 打印路径: 使用 pos 数组，从后往前扫，len-- 的第一次出现就是答案
+// 打印路径: 使用 pos 数组，从后往前扫，(len--)的第一次出现就是答案
 // LIS[i] = max{1 , LIS[k] + 1}  (∀k < i, arr[i] > arr[k])
 /*
 Longest Not-decrease Sequence:
-bool cmp(int a, int b)
-{
+bool cmp(int a, int b) {
     return a <= b;
 }
 j = lower_bound(lis + 1, lis + len + 1, x, cmp) - lis;

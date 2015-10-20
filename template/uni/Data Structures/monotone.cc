@@ -31,12 +31,7 @@ int main() {
     return 0;
 }
 
-// 单调栈
-#include <cstdio>
-#include <stack>
-#define MX 100001
-using namespace std;
-typedef long long ll;
+// 单调栈（最大面积）
 int h[MX], l[MX], r[MX];
 stack<int> s;
 int main() {
