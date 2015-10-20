@@ -1,45 +1,48 @@
 // 1. fread + 缓冲区法
-#define BUFSIZE 1000000
-char buf[BUFSIZE], *pt = buf + BUFSIZE, *pend = buf + BUFSIZE;
-int sign;
-#define read()                             \
-    do {                                   \
-        if (pt >= pend) {                  \
-            pt = buf;                      \
-            fread(buf, 1, BUFSIZE, stdin); \
-        }                                  \
-    } while (0)
-#define scan(t)                                          \
-    {                                                    \
-        t = 0;                                           \
-        sign = 1;                                        \
-        read();                                          \
-        while ((*pt < '0' || *pt > '9') && *pt != '-') { \
-            pt++;                                        \
-            read();                                      \
-        }                                                \
-        if (*pt == '-')                                  \
-            sign = -1, pt++;                             \
-        while (((*pt) >= '0' && (*pt) <= '9')) {         \
-            t = t * 10 + (*(pt++)) - '0';                \
-            read();                                      \
-        }                                                \
-        t *= sign;                                       \
+struct FastIO {
+    static const int S = 131072;
+    int wpos;
+    char wbuf[S];
+    FastIO() : wpos(0) {
     }
-#define scan_str(s)                                      \
-    {                                                    \
-        int p = 0;                                       \
-        read();                                          \
-        while ((*pt) == ' ' || (*pt) == 'n' || (*pt) == 'r') { \
-            pt++;                                        \
-            read();                                      \
-        }                                                \
-        while (!((*pt) == ' ' || (*pt) == 'n' || (*pt) == 'n')) { \
-            s[p++] = (*(pt++));                          \
-            read();                                      \
-        }                                                \
-        s[p] = 0;                                        \
+    inline int xchar() {
+        static char buf[S];
+        static int len = 0, pos = 0;
+        if (pos == len)
+            pos = 0, len = fread(buf, 1, S, stdin);
+        if (pos == len)
+            return -1;
+        return buf[pos++];
     }
+    inline int xuint() {
+        int s;
+        scanf("%d", &s);
+        return s;
+        int c = xchar(), x = 0;
+        while (c <= 32)
+            c = xchar();
+        for (; '0' <= c && c <= '9'; c = xchar())
+            x = x * 10 + c - '0';
+        return x;
+    }
+    inline int xint() {
+        int t;
+        scanf("%d", &t);
+        return t;
+        int s = 1, c = xchar(), x = 0;
+        while (c <= 32)
+            c = xchar();
+        if (c == '-')
+            s = -1, c = xchar();
+        for (; '0' <= c && c <= '9'; c = xchar())
+            x = x * 10 + c - '0';
+        return x * s;
+    }
+    ~FastIO() {
+        if (wpos)
+            fwrite(wbuf, 1, wpos, stdout), wpos = 0;
+    }
+} io;
 
 // 2. naive
 inline void scanf_(int &num) {
