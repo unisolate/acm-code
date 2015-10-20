@@ -1,4 +1,5 @@
-// st
+// TODO
+// st 算法
 int p[MX], d[MX][20];
 void init(int n) {
     for (int i = 0; i < n; ++i)
@@ -16,7 +17,7 @@ int rmq(int x, int y) {
     return max(d[x][k], d[y - (1 << k) + 1][k]);
 }
 
-// bit
+// 树状数组
 int p[MX], d[MX];
 void init(int n) {
     for (int i = 1; i < n; ++i) {

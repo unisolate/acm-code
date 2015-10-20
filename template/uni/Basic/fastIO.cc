@@ -1,3 +1,4 @@
+// 1. fread + 缓冲区法
 #define BUFSIZE 1000000
 char buf[BUFSIZE], *pt = buf + BUFSIZE, *pend = buf + BUFSIZE;
 int sign;
@@ -25,22 +26,22 @@ int sign;
         }                                                \
         t *= sign;                                       \
     }
-#define scan_str(s)                                               \
-    {                                                             \
-        int p = 0;                                                \
-        read();                                                   \
-        while ((*pt) == ' ' || (*pt) == 'n' || (*pt) == 'r') {    \
-            pt++;                                                 \
-            read();                                               \
-        }                                                         \
+#define scan_str(s)                                      \
+    {                                                    \
+        int p = 0;                                       \
+        read();                                          \
+        while ((*pt) == ' ' || (*pt) == 'n' || (*pt) == 'r') { \
+            pt++;                                        \
+            read();                                      \
+        }                                                \
         while (!((*pt) == ' ' || (*pt) == 'n' || (*pt) == 'n')) { \
-            s[p++] = (*(pt++));                                   \
-            read();                                               \
-        }                                                         \
-        s[p] = 0;                                                 \
+            s[p++] = (*(pt++));                          \
+            read();                                      \
+        }                                                \
+        s[p] = 0;                                        \
     }
 
-//////
+// 2. naive
 inline void scanf_(int &num) {
     char in;
     bool neg = false;

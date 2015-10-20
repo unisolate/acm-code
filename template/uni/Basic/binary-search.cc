@@ -1,4 +1,4 @@
-// [l, r]
+// 二分查找，区间 [l, r]
 int bs(int k) {
     int l = 0, r = n - 1, p;
     while (l <= r) {
@@ -13,7 +13,7 @@ int bs(int k) {
     return -1;
 }
 
-// [l, r)
+// 二分查找，区间 [l, r)
 int bs(int k) {
     int l = 0, r = n, p;
     while (l < r) {
@@ -28,12 +28,7 @@ int bs(int k) {
     return -1;
 }
 
-/*
-[l, r)
-lower_bound >=
-upper_bound >
- */
-
+// lower_bound（第一个 >=）区间 [l, r)
 int lb(int k) {
     int cnt = r - l, it, step;
     while (cnt > 0) {
@@ -49,6 +44,7 @@ int lb(int k) {
     return l;
 }
 
+// upper_bound（第一个 >）区间 [l, r) 
 int ub(int k) {
     int cnt = r - l, it, step;
     while (cnt > 0) {
@@ -64,6 +60,7 @@ int ub(int k) {
     return l;
 }
 
+// 二分查找答案 区间 [l, r)
 void solve(int l, int r) {
     int m;
     while (r - l > 1) {
@@ -72,3 +69,22 @@ void solve(int l, int r) {
     }
     return l;
 }
+
+// 二分迭代
+double l = 0, r = 1, m;
+for (int i = 0; i < 100; ++i)
+{
+    m = (l + r) / 2.0;
+    ok(m) ? l = m : r = m;
+}
+
+// 三分查找答案
+double l = 0, r = INF, tmp, m1, m2;
+while (l + eps < r)
+{
+    tmp = (r - l) / 3.0;
+    m1 = l + tmp;
+    m2 = r - tmp;
+    calc(m1) > calc(m2) + eps ? l = m1 : r = m2;
+}
+printf("Case #%d: %.2lf %.2lf\n", cas++, l, calc(l));

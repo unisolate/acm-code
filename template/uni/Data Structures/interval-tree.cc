@@ -1,9 +1,3 @@
-/*
- * Interval tree (Segment tree)
- * @author Uni
- * @time 2015/5/3
- */
-
 #include <cstdio>
 #include <cstring>
 #include <algorithm>
@@ -45,11 +39,10 @@ void B(int l = 1, int r = N, int n = 1) {
     B(ls), B(rs), up(n);
 }
 
-// Update position x
-// Prepare: X, V
+// 单点更新 X 为 V
 void U(int l = 1, int r = N, int n = 1) {
     if (l == r) {
-        sum[n] = ma[n] = mi[n] = num[l] = V; // or addition
+        sum[n] = ma[n] = mi[n] = num[l] = V; // 赋值或增加
         return;
     }
     down(n, r - l + 1);
@@ -59,8 +52,7 @@ void U(int l = 1, int r = N, int n = 1) {
     up(n);
 }
 
-// Update [L,R]
-// Prepare: L, R, v
+// 区间更新 [L,R] 为 V
 void U(int l = 1, int r = N, int n = 1) {
     if (L <= l && r <= R) {
         add[n] += V, sum[n] += V * (r - l + 1);
@@ -73,8 +65,7 @@ void U(int l = 1, int r = N, int n = 1) {
     up(n);
 }
 
-// Query interval [L,R]
-// Prepare: L, R
+// 查询区间 [L,R]
 int Q(int l = 1, int r = N, int n = 1) {
     if (L <= l && r <= R) {
         return sum[n];

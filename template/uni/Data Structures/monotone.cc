@@ -1,4 +1,4 @@
-/* queue */
+// 单调队列
 #include <cstdio>
 #include <algorithm>
 #include <deque>
@@ -31,7 +31,7 @@ int main() {
     return 0;
 }
 
-/* stack */
+// 单调栈
 #include <cstdio>
 #include <stack>
 #define MX 100001

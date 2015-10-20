@@ -1,7 +1,7 @@
 char s[MX];
 int l[MX];
-void palindrome(char cs[], int len[],
-                int n) { //len[i] means the max palindrome length centered i/2
+//len[i] 是 i/2 为中心的最大回文长度
+void palindrome(char cs[], int len[], int n) { 
     for (int i = 0; i < n * 2; ++i) {
         len[i] = 0;
     }

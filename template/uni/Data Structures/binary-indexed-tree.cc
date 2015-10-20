@@ -1,8 +1,8 @@
-/// 1. Single point
-// memset(c,0,sizeof(c)) before use
+// 1. 单点
+// 每次用之前 memset
 int c[MX];
 
-// n -> update place, v -> update value
+// 不判 0 可能操蛋
 void U(int x, int v) {
     if (x == 0) {
         return;
@@ -11,7 +11,7 @@ void U(int x, int v) {
         c[x] += v;
 }
 
-// get the sum from 1 to n (BIT starts from 1)
+// [1,x]的和
 int Q(int x) {
     if (x == 0) {
         return;
@@ -22,17 +22,17 @@ int Q(int x) {
     return r;
 }
 
-// 2D
+// 2. 二维
 int c[MAXX][MAXY];
 
-// update at (x,y)
+// 更新 (x,y)
 void U(int x, int y, int v) {
     for (; x <= MAXX; x += (x & -x))
         for (int i = y; i <= MAXY; i += (i & -i))
             c[x][i] += v;
 }
 
-// get the sum from (1,1) to (x,y)
+// (1,1) 到 (x,y) 的和
 int Q(int x, int y) {
     int r = 0;
     for (; x > 0; x -= (x & -x))
@@ -41,14 +41,14 @@ int Q(int x, int y) {
     return r;
 }
 
-/// 2. Update interval [l,r]
+// 3. 区间更新 [l,r]
 // U(l - 1, -c), U(r, c);
 void U(int x, int v) {
     for (; x > 0; x -= (x & -x))
         b[x] += v;
 }
 
-// Q(x) the value of a[x]
+// Q(x) 查询 a[x] 的值
 int Q(int x) {
     int r = 0;
     for (; x <= n; x += (x & -x))
@@ -56,8 +56,8 @@ int Q(int x) {
     return r;
 }
 
-/// 3. Update & query Interval
-// U(r, c); if (l > 1) U(l - 1, -c);
+/// 4. 区间更新、查询
+// 更新[l,r]：U(r, c); if (l > 1) U(l - 1, -c);
 void U(int x, int v) {
     if (x == 0)
         return;
@@ -67,7 +67,7 @@ void U(int x, int v) {
         c[i] += x * v;
 }
 
-// Q(r) - Q(l - 1);
+// 查询[l,r]：Q(r) - Q(l - 1);
 int QB(int x) {
     int r = 0;
     for (; x <= n; x += (x & -x))
@@ -88,13 +88,8 @@ int Q(int x) {
     return 0;
 }
 
-/// 4.
-// Inversion pairs with duplicate and 10^9
-#include <cstdio>
-#include <cstring>
-#include <algorithm>
+// 5. 带重复的逆序对，最大 10^9
 #define MX 99999
-using namespace std;
 typedef long long ll;
 struct P {
     int v, w, i;

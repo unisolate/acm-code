@@ -1,9 +1,7 @@
-#include <bits/stdc++.h>
-using namespace std;
-const int MAXSTRLEN = 1000;
+const int MX = 1000;
 
-char a[MAXSTRLEN], b[MAXSTRLEN];
-int dp[MAXSTRLEN][MAXSTRLEN], path[MAXSTRLEN][MAXSTRLEN];
+char a[MX], b[MX];
+int dp[MX][MX], path[MX][MX];
 
 int Lcs(char x[], char y[]) {
     int i, j, len1 = strlen(x + 1), len2 = strlen(y + 1);

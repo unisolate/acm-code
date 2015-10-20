@@ -1,11 +1,4 @@
-#include <cstdio>
-#include <cstring>
-#include <cstdlib>
-#include <cctype>
-#include <stack>
-#include <queue>
-using namespace std;
-
+// TODO 调度场算法
 int op_rank(char c) {
     switch (c) {
     case '^':
@@ -23,7 +16,6 @@ int op_rank(char c) {
     }
     return 0;
 }
-
 void shunting_yard(char *p) {
     stack<char> s;
     queue<char> q;
@@ -80,7 +72,6 @@ void shunting_yard(char *p) {
     }
     puts("");
 }
-
 int main() {
     char p[1024];
     while (~scanf("%s", p)) {

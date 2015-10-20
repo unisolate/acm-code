@@ -33,7 +33,7 @@ int weekday(date a) {
     return (ty + ty / 4 - ty / 100 + ty / 400 + (int)(2.6 * tm - 0.2) + a.day) % 7;
 }
 
-//日期转天数偏移
+//日期转天数偏移（用于计算日期差？）
 int date2int(date a) {
     int ret = a.year * 365 + (a.year - 1) / 4 - (a.year - 1) / 100 +
               (a.year - 1) / 400, i; days[1] += leap(a.year);

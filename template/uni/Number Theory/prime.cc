@@ -1,3 +1,4 @@
+// TODO
 bool prime[MAXN];
 void findprime()
 {
@@ -22,8 +23,6 @@ int main()
     return 0;
 }
 
-//////////////////////////
-
 void get_prime()
 {
     int cnt = 0;
@@ -40,7 +39,9 @@ void get_prime()
 
     }
 }
-int phi[3000010]; //Euler Function
+
+// 欧拉函数
+int phi[3000010];
 int euler()
 {
     int i, j;
